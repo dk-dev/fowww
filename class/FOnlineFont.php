@@ -133,6 +133,21 @@ class FOnlineFont
 		}
 	}
 
+	public function TextValid( $text )
+	{
+		if( !isset($text) || $text == '' )
+			return( false );
+
+		$textArray = preg_split( '//', $text, -1, PREG_SPLIT_NO_EMPTY );
+		foreach( $textArray as $letter )
+		{
+			if( !isset( $this->Letters[$letter] ))
+				return( false );
+		}
+
+		return( true );
+	}
+
 	public function TextToImage( $text, $r = NULL, $g = NULL, $b = NULL )
 	{
 		// check arguments
@@ -166,7 +181,6 @@ class FOnlineFont
 				$fontImage = imagecreatefrompng( $this->Image );
 				break;
 			case '.jpg':
-			case '.jpeg':
 				$fontImage = imagecreatefromjpeg( $this->Image );
 				break;
 			case '.gif':
